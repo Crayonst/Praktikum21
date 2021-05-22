@@ -1,5 +1,4 @@
 package Blatt04;
-
 import java.util.ArrayList;
 
 public class Application {
@@ -14,6 +13,7 @@ public class Application {
                 System.out.println("Falsche Parameteranzahl!");
                 throw new Exception();
             }
+
 
             //genau 2 Eingaben
             else if(len == 2){
@@ -35,43 +35,21 @@ public class Application {
                     System.out.println("Falscher Parameter! Als Seed sind nur Integer erlaubt.");
                     throw new Exception();
                 }
-            }
 
-            //mehr als 2 Eingaben
-            else{
-                double[] arr = new double[len];
-                ArrayList<Point> points = new ArrayList<>();
-                try {
+                PointsGenerator pointsGenerator = new PointsGenerator(0, 100, b);
+                ArrayList<Point> points = pointsGenerator.generate(a);
 
-                    for (int i = 0; i < len; i++) {
-                        arr[i] = Double.parseDouble(args[i]);
-                    }
-
-
-                }catch (Exception e){
-                    System.out.println("Es war nicht moeglich, alle Punkte einzulesen.");
-                    throw new Exception();
-                }
-
-                //wenn ungerade Anzahl der Zahl eingegeben wird
-                if(arr.length % 2 != 0){
-                    return;
-                }
-
-                Point s = new Point(arr[0], arr[1]);
-                Point e = new Point(arr[2], arr[3]);
+                Point s = points.get(0);
+                Point e = points.get(1);
                 Line line = new Line(s, e);
                 System.out.println("Vergleiche Punkte mit der Geraden " + line);
 
-
-                for (int i = 5; i < len; i+=2) {
-                    Point p = new Point(arr[i-1], arr[i]);
-
-
+                for (int i = 2; i < points.size(); i++) {
+                    Point p = points.get(i);
                     if(line.side(p) == 0){
                         System.out.println("Punkt " + p + " liegt auf der Linie.");
                         if(isBetween(s, e, p)){
-                            System.out.println("Punkt " + p + " liegt zwischen" + s + " und " + e);
+                            System.out.println("Punkt " + p + " liegt zwischen " + s + " und " + e);
                         }
                     }
                     else if(line.side(p) == 1){
@@ -83,11 +61,45 @@ public class Application {
                 }
 
 
+            }
 
 
+            //mehr als 2 Eingaben
+            else if(len > 4){
+                double[] arr = new double[len];
+                try {
+                    for (int i = 0; i < len; i++) {
+                        arr[i] = Double.parseDouble(args[i]);
+                    }
+                }catch (Exception e){
+                    System.out.println("Es war nicht moeglich, alle Punkte einzulesen.");
+                    throw new Exception();
+                }
 
+                Point s = new Point(arr[0], arr[1]);
+                Point e = new Point(arr[2], arr[3]);
+                Line line = new Line(s, e);
+                System.out.println("Vergleiche Punkte mit der Geraden " + line);
 
-
+                for (int i = 5; i < len; i+=2) {
+                    Point p = new Point(arr[i-1], arr[i]);
+                    if(line.side(p) == 0){
+                        System.out.println("Punkt " + p + " liegt auf der Linie.");
+                        if(isBetween(s, e, p)){
+                            System.out.println("Punkt " + p + " liegt zwischen " + s + " und " + e);
+                        }
+                    }
+                    else if(line.side(p) == 1){
+                        System.out.println("Punkt " + p + " liegt links der Linie.");
+                    }
+                    else{
+                        System.out.println("Punkt " + p + " liegt rechts der Linie.");
+                    }
+                }
+            }
+            else{
+                System.out.println("Anzahl der Punkte muss groesser als 2 sein.");
+                throw new Exception();
             }
 
 

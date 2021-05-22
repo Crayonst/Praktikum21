@@ -1,12 +1,11 @@
 package Blatt04;
-import java.util.ArrayList;
 
 
 public class Point {
 
-    double x;
-    double y;
-    double[] koordinaten;
+    private final double x;
+    private final double y;
+    private final double[] koordinaten;
 
 
     public Point(double x, double y){
@@ -16,32 +15,9 @@ public class Point {
     }
 
 
-    public double[] getKoordinaten(){
-        return koordinaten;
-    }
-
-
-    public boolean equals(Point p){
-        for(int i=0; i<koordinaten.length; i++){
-            if( !p.equals(koordinaten[i]) ){
-                return false;
-            }
-        }
-        return true;
-    }
-
-
     public String toString(){
-        return "(" + x + ", " + y + ")";
-    }
-
-
-    public double[] getAllX(ArrayList<Point> list){
-        double[] allX = new double[list.size()];
-        for(int i=0; i<list.size(); i++){
-            allX[i] = list.get(i).get(0);
-        }
-        return allX;
+        //return "(" + x + ", " + y + ")";
+        return "(" + String.format("%.2f", x) + ", " + String.format("%.2f", y) + ")";
     }
 
 

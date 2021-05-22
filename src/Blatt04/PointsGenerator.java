@@ -1,54 +1,33 @@
 package Blatt04;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class PointsGenerator {
 
-
-    java.util.Random generator = new java.util.Random();
-    double min = 0;
-    double max = 1.00;
-    int n;
+    private final double min;
+    private final double max;
+    private final int Seed;
 
 
-
-
-    public PointsGenerator(double min, double max){
-        min = this.min;
-        max = this.max;
-        generate(n);
+    public PointsGenerator(double min, double max, int Seed){
+        this.min = min;
+        this.max = max;
+        this.Seed = Seed;
     }
 
 
-
-
-    //返回一个随机多个Point的ArrayList，并且每个点已经根据x从小到大排好序了
+    //erzeugen eine pointsList mit n points
     public ArrayList<Point> generate(int n) {
 
-        ArrayList<Point> points = new ArrayList<Point>();
-
+        Random rng = new Random(Seed);
+        ArrayList<Point> points = new ArrayList<>();
         for(int i=0; i<n; i++) {
-            double x = min + ((max - min) * generator.nextDouble());
-            double y = min + ((max - min) * generator.nextDouble());
-            Point P = new Point(x, y);
-
-            points.add(P);
+            double coordX = (rng.nextDouble() * (max - min) + min);
+            double coordY = (rng.nextDouble() * (max - min) + min);
+            Point p = new Point(coordX, coordY);
+            points.add(p);
         }
         return points;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
