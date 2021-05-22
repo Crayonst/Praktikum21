@@ -26,8 +26,9 @@ public class Line {
     }
 
 
-    public double vektorLength(Point p1, Point p2){
-        return Math.sqrt( (p2.get(0)-p1.get(0))*(p2.get(0)-p1.get(0)) + (p2.get(1)-p1.get(1))*(p2.get(1)-p1.get(1)) );
+    public double getLength(){
+        return Math.sqrt( (Endpunkt.get(0)-Startpunkt.get(0))*(Endpunkt.get(0)-Startpunkt.get(0))
+                + (Endpunkt.get(1)-Startpunkt.get(1))*(Endpunkt.get(1)-Startpunkt.get(1)) );
     }
 
 
@@ -78,6 +79,9 @@ public class Line {
                 max = Math.abs( x1*y2+x*y1+x2*y-x*y2-x2*y1-x1*y );
                 Pmax = points.get(i);
             }
+
+
+
         }
         return Pmax;
     }

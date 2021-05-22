@@ -31,15 +31,6 @@ public class Point {
     }
 
 
-    /*public String toString(){
-        String x = "";
-        for(int i=0; i<koordinaten.length; i++){
-           x = x + " " + String.valueOf(koordinaten[i]);
-        }
-        return x;
-    }*/
-
-
     public String toString(){
         return "(" + x + ", " + y + ")";
     }
