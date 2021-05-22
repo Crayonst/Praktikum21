@@ -6,7 +6,7 @@ public class test {
         Point point = new Point(1, 1);
         System.out.println(point);
 
-        System.out.println("test");
+        System.out.println("testtt");
     }
 
 }
