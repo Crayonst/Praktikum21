@@ -8,12 +8,7 @@ public class SimpleConvexHull {
 
     public static LinkedList<Point> computeHull(Point[] p) {
         LinkedList<Point> list = new LinkedList<>();
-        for (int i = 0; i < p.length - 1; i++) {
-            /* 这是错的，取两点应该是p[i]和p[j]，然后在j循环里查看所有其他点是否满足
-               ”全在同一侧”或“全在直线上且不是最外侧点”
-               两条件满足其一，则p[i]和p[j]可添加到list里。
-               也就是说，可能需要*第三个循环k*，a[k]用来表示其他所有点
-            */
+        for (int i = 0; i < p.length; i++) {
             for (int j = i + 1; j < p.length; j++) {
                 Line l = new Line(p[i], p[j]);
                 int counta = 0;
@@ -36,15 +31,32 @@ public class SimpleConvexHull {
                         }
                     }
                 }
-                if (counta == p.length - 2 || countl == p.length - 2 || countr == p.length - 2) {
+                if (counta + countl == p.length - 2 || counta + countr == p.length - 2 ||
+                        countl == p.length - 2 || countr == p.length - 2) {
                     list.add(p[i]);
                     list.add(p[j]);
-                    System.out.println("Neue Aussenkante gefunden: ( " + p[i] + " )" + " -- "
-                            + "( " + p[j] + " )");
+                    System.out.println("Neue Aussenkante gefunden: " + p[i] + " -- " + p[j]);
                 }
             }
         }
+        list = Gleichheit(list);
         return list;
+    }
+
+    private static LinkedList<Point> Gleichheit(LinkedList<Point> list) {
+        LinkedList l = new LinkedList();
+        for (int i = 0; i < list.size(); i++) {
+            boolean flag = true;
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i) == list.get(j)) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                l.add(list.get(i));
+            }
+        }
+        return l;
     }
 
     //判断是否为最外侧点
@@ -114,12 +126,12 @@ public class SimpleConvexHull {
             for (int i = 0; i < p.length; i++) {
                 p[i] = points.get(i);
             }
+
             LinkedList<Point> list = computeHull(p);
-            for (int i = 2; i < list.size() - 3; i++) {
-                System.out.print( list.get(i)   + " -- ");
+            for (int i = 0; i < list.size() - 1; i++) {
+                System.out.print(list.get(i) + " -- ");
             }
-            System.out.println(list.get(list.size() - 3));
-//            System.out.println("(" + list.get(list.size() - 2) + ", " + list.get(list.size() - 1) + ")");
+            System.out.println(list.get(list.size() - 1));
         }
 
 
@@ -134,17 +146,23 @@ public class SimpleConvexHull {
                 FehlerAusdruck();
                 System.exit(0);
             }
-            Point[] p = new Point[len];
+            Point[] p = new Point[len / 2];
             int count = 0;
-            for (int i = 0; i < p.length; i+=2) {
-                p[count] = new Point(arr[i],arr[i+1]);
+            for (int i = 0; i < len; i += 2) {
+                p[count] = new Point(arr[i], arr[i + 1]);
                 count++;
             }
             LinkedList<Point> list = computeHull(p);
-            for (int i = 2; i < list.size() - 3; i++) {
-                System.out.print( list.get(i)   + " -- ");
+            // spezifisch fuer 6 Punkte Eingabe
+//            Point tmp1 = list.get(list.size()-2);
+//            Point tmp2 = list.get(list.size()-1);
+//            list.set(list.size()-1,tmp1);
+//            list.set(list.size()-2,tmp2);
+
+            for (int i = 0; i < list.size() - 1; i++) {
+                System.out.print(list.get(i) + " -- ");
             }
-            System.out.println(list.get(list.size() - 3));
+            System.out.println(list.get(list.size() - 1));
         }
     }
 }
