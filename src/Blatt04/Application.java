@@ -65,7 +65,7 @@ public class Application {
 
 
             //mehr als 2 Eingaben
-            else if(len > 4){
+            else if(len > 5){
                 double[] arr = new double[len];
                 try {
                     for (int i = 0; i < len; i++) {
@@ -98,7 +98,7 @@ public class Application {
                 }
             }
             else{
-                System.out.println("Anzahl der Punkte muss groesser als 2 sein.");
+                System.out.println("Falsche Parameteranzahl!");
                 throw new Exception();
             }
 
